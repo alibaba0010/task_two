@@ -1,5 +1,5 @@
 // TODO# 1: Define Module and Marketplace Address
-address 0x65a3857a226af09f7f6fa4cf017f9a00718f64be692da9df4429a747faf3b78d {
+address <address> {
 
     module NFTMarketplace {
         use 0x1::signer;
@@ -209,8 +209,23 @@ struct NFT has store, key {
 
         // TODO# 20: Retrieve NFTs by Rarity
   // Helper function to find the minimum of two u64 numbers
-        public fun min(a: u64, b: u64): u64 {
-            if (a < b) { a } else { b }
+      // New function to retrieve NFTs by rarity
+        #[view]
+        public fun get_nfts_by_rarity(marketplace_addr: address, rarity: u8): vector<u64> acquires Marketplace {
+            let marketplace = borrow_global<Marketplace>(marketplace_addr);
+            let nft_ids = vector::empty<u64>();
+
+            let nfts_len = vector::length(&marketplace.nfts);
+            let mut_i = 0;
+            while (mut_i < nfts_len) {
+                let nft = vector::borrow(&marketplace.nfts, mut_i);
+                if (nft.rarity == rarity) {
+                    vector::push_back(&mut nft_ids, nft.id);
+                };
+                mut_i = mut_i + 1;
+            };
+
+            nft_ids
         }
     }
 }
