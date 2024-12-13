@@ -13,8 +13,11 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 const client = new AptosClient("https://fullnode.testnet.aptoslabs.com/v1");
 // const client = new AptosClient("https://fullnode.devnet.aptoslabs.com/v1");
 
-// const marketplaceAddr = "your-marketplace-address";
-const marketplaceAddr = "0x65a3857a226af09f7f6fa4cf017f9a00718f64be692da9df4429a747faf3b78d";
+const marketplaceAddr = "0xb4037b16f9c0ea23f4df411e84a49278165c40dd9940ee41b41acb22caae8725";
+// TODOs
+// 1. configure marketplace address to be gotten from web 
+// functionality feature that allows users to make offers on NFTs listed in the marketplace, enabling sellers to accept or decline incoming offers for their assets.
+// const marketplaceAddr = "0x65a3857a226af09f7f6fa4cf017f9a00718f64be692da9df4429a747faf3b78d";
 
 
 function App() {
@@ -27,6 +30,7 @@ function App() {
   const handleMintNFT = async (values: { name: string; description: string; uri: string; rarity: number }) => {
     try {
       const nameVector = Array.from(new TextEncoder().encode(values.name));
+      console.log("Name vector ", nameVector)
       const descriptionVector = Array.from(new TextEncoder().encode(values.description));
       const uriVector = Array.from(new TextEncoder().encode(values.uri));
 
